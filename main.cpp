@@ -1,41 +1,38 @@
 #include <iostream>
+#include <cmath>
 
 using str = std::string;
 
-double add(double num1, double num2, double ans)
+double add(double num1, double num2)
 {
-    ans = num1 + num2;
-    return ans;
+    return num1 + num2;
 }
 
-double subtract(double num1, double num2, double ans)
+double subtract(double num1, double num2)
 {
-    ans = num1 - num2;
-    return ans;
+    return num1 - num2;
 }
 
-double multiply(double num1, double num2, double ans)
+double multiply(double num1, double num2)
 {
-    ans = num1 * num2;
-    return ans;
+    return num1 * num2;
 }
 
-double divide(double num1, double num2, double ans)
+double divide(double num1, double num2)
 {
-    ans = num1 / num2;
-    return ans;
-}
-
-double power(double num1, double num2, double ans) // In this case num1 is the number to be manipulated and num2 is the power, total is used to preseve these values
-{
-    double total;
-    total = num1 * num1;
-    for (int i = 2; i < num2; i++)
+    if (num2 == 0)
     {
-        total = num1 * total;
+        std::cout << "Error: You cannot divde by 0.";
     }
-    ans = total;
-    return ans;
+    else
+    {
+        return num1 / num2;
+    }
+}
+
+double power(double num1, double num2)
+{
+    return pow(num1, num2);
 }
 
 int main()
@@ -57,29 +54,29 @@ int main()
 
     if (calcOperator == "+")
     {
-        ans = add(num1, num2, ans);
+        ans = add(num1, num2);
         std::cout << num1 << "+" << num2 << "=" << ans;
     }
     else if (calcOperator == "-")
     {
-        ans = subtract(num1, num2, ans);
+        ans = subtract(num1, num2);
         std::cout << num1 << "-" << num2 << "=" << ans;
     }
     else if (calcOperator == "*")
     {
-        ans = multiply(num1, num2, ans);
+        ans = multiply(num1, num2);
         std::cout << num1 << "*" << num2 << "=" << ans;
     }
     else if (calcOperator == "/")
     {
-        ans = divide(num1, num2, ans);
-        std::cout << num1 << "÷" << num2 << "=" << ans;
+        ans = divide(num1, num2);
+        std::cout << num1 << "/" << num2 << "=" << ans;
     }
     else if (calcOperator == "^")
     {
         std::cout << "What power would you like: ";
         std::cin >> num2;
-        ans = power(num1, num2, ans);
+        ans = power(num1, num2);
         std::cout << num1 << "^" << num2 << "=" << ans;
     }
     else
