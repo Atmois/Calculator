@@ -26,13 +26,16 @@ double divide(double num1, double num2, double ans)
     return ans;
 }
 
-double power(double num1, double num2, double ans)
+double power(double num1, double num2, double ans) // In this case num1 is the number to be manipulated and num2 is the power, total is used to preseve these values
 {
-    for(int i = 1; i <= num2; i++)
+    double total;
+    total = num1 * num1;
+    for (int i = 2; i < num2; i++)
     {
-        num1 = num1 * num1;
-        return ans;
+        total = num1 * total;
     }
+    ans = total;
+    return ans;
 }
 
 int main()
@@ -77,6 +80,7 @@ int main()
         std::cout << "What power would you like: ";
         std::cin >> num2;
         ans = power(num1, num2, ans);
+        std::cout << num1 << "^" << num2 << "=" << ans;
     }
     else
     {
