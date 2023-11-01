@@ -22,7 +22,7 @@ double divide(double num1, double num2)
 {
     if (num2 == 0)
     {
-        std::cout << "Error: You cannot divde by 0.";
+        return 0;
     }
     else
     {
@@ -70,7 +70,13 @@ int main()
     else if (calcOperator == "/")
     {
         ans = divide(num1, num2);
-        std::cout << num1 << "/" << num2 << "=" << ans;
+        if(ans == 0) {
+            std::cout << "Error: You cannot divide by 0";
+        }
+        else {
+            std::cout << num1 << "/" << num2 << "=" << ans; 
+        }
+        
     }
     else if (calcOperator == "^")
     {
