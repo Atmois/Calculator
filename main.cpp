@@ -2,35 +2,29 @@
 #include <cmath>
 using str = std::string;
 
-double num1;
-double num2;
-double ans;
-str calcOperator;
-str calcProcess;
-
-double inputNum1()
+double inputNum1(int num1)
 {
     std::cout << "Number 1: ";
-        while (!(std::cin >> num1))
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Error: You entered a non numerical character for Number 1\n";
-            std::cout << "Number 1: ";
-        }
-        return num1;
+    while (!(std::cin >> num1))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Error: You entered a non numerical character for Number 1\n";
+        std::cout << "Number 1: ";
+    }
+    return num1;
 }
-double inputNum2()
+double inputNum2(int num2)
 {
     std::cout << "Number 2: ";
-        while (!(std::cin >> num2))
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Error: You entered a non numerical character for Number 2\n";
-            std::cout << "Number 2: ";
-        }
-        return num2;
+    while (!(std::cin >> num2))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Error: You entered a non numerical character for Number 2\n";
+        std::cout << "Number 2: ";
+    }
+    return num2;
 }
 
 double arithmetic(double num1, double num2, str calcOperator)
@@ -62,31 +56,32 @@ double power(double num1, double num2)
     return pow(num1, num2);
 }
 
-str getOperator()
+str getOperator(str calcOperator)
 {
     std::cout << "Add('+'), Subtract('-'), Divde('/'), Multiply('*') or Powers('^'): ";
     std::cin >> calcOperator;
     return calcOperator;
 }
 
-str calculation(str calcOperator)
+str calculation(str calcOperator, double num1, double num2)
 {
+    double ans;
     if (calcOperator == "+" || calcOperator == "-" || calcOperator == "/" || calcOperator == "*")
     {
-        num1 = inputNum1();
-        num2 = inputNum2();
-        while (calcOperator == "/" && num2 == 0)    
+        num1 = inputNum1(num1);
+        num2 = inputNum2(num2);
+        while (calcOperator == "/" && num2 == 0)
         {
             std::cout << "Error: You cannot divide by 0\n";
-            inputNum2();
+            inputNum2(num2);
         }
-            ans = arithmetic(num1, num2, calcOperator);
-            std::cout << num1 << calcOperator << num2 << "=" << ans;
-            return "success";
+        ans = arithmetic(num1, num2, calcOperator);
+        std::cout << num1 << calcOperator << num2 << "=" << ans;
+        return "success";
     }
     else if (calcOperator == "^")
     {
-        num1 =  inputNum1();
+        num1 = inputNum1(num1);
         std::cout << "Power: ";
         while (!(std::cin >> num2))
         {
@@ -95,9 +90,9 @@ str calculation(str calcOperator)
             std::cout << "Error: You entered a non numerical character for Power\n";
             std::cout << "Power: ";
         }
-            ans = power(num1, num2);
-            std::cout << num1 << "^" << num2 << "=" << ans;
-            return "success";
+        ans = power(num1, num2);
+        std::cout << num1 << "^" << num2 << "=" << ans;
+        return "success";
     }
     else
     {
@@ -107,29 +102,33 @@ str calculation(str calcOperator)
     return "failed";
 }
 
-
-
 int main()
 {
-    calcOperator = getOperator();
-    calcProcess = calculation(calcOperator);
-    if (calcProcess == "failed" )
+
+    double num1;
+    double num2;
+    str calcOperator;
+    str calcProcess;
+
+    calcOperator = getOperator(calcOperator);
+    calcProcess = calculation(calcOperator, num1, num2);
+    if (calcProcess == "failed")
     {
         std::cout << "Error";
     }
-    else if(calcProcess == "invOp")
+    else if (calcProcess == "invOp")
     {
-        main();
+        main(); // Remove recurison
     }
     else if (calcProcess == "success")
     {
         char continueProgram;
         std::cout << "\nWould you like to use the calculator again (Y/N): ";
         std::cin >> continueProgram;
-        continueProgram = (char) std::tolower(continueProgram);
+        continueProgram = (char)std::tolower(continueProgram);
         if (continueProgram == 'y')
         {
-            main();
+            main(); // Remove recurison
         }
     }
     return 0;
