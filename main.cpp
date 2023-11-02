@@ -86,7 +86,6 @@ str calculation(str calcOperator)
     }
     else if (calcOperator == "^")
     {
-        std::cout << "Number 1: ";
         num1 =  inputNum1();
         std::cout << "Power: ";
         while (!(std::cin >> num2))
