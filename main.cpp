@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-
 using str = std::string;
 
 double num1;
@@ -8,6 +7,31 @@ double num2;
 double ans;
 str calcOperator;
 str calcProcess;
+
+double inputNum1()
+{
+    std::cout << "Number 1: ";
+        while (!(std::cin >> num1))
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Error: You entered a non numerical character for Number 1\n";
+            std::cout << "Number 1: ";
+        }
+        return num1;
+}
+double inputNum2()
+{
+    std::cout << "Number 2: ";
+        while (!(std::cin >> num2))
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Error: You entered a non numerical character for Number 2\n";
+            std::cout << "Number 2: ";
+        }
+        return num2;
+}
 
 double arithmetic(double num1, double num2, str calcOperator)
 {
@@ -25,14 +49,7 @@ double arithmetic(double num1, double num2, str calcOperator)
     }
     else if (calcOperator == "/")
     {
-        if (num2 == 0)
-        {
-            return 0;
-        }
-        else
-        {
-            return num1 / num2;
-        }
+        return num1 / num2;
     }
     else
     {
@@ -45,49 +62,32 @@ double power(double num1, double num2)
     return pow(num1, num2);
 }
 
+str getOperator()
+{
+    std::cout << "Add('+'), Subtract('-'), Divde('/'), Multiply('*') or Powers('^'): ";
+    std::cin >> calcOperator;
+    return calcOperator;
+}
+
 str calculation(str calcOperator)
 {
     if (calcOperator == "+" || calcOperator == "-" || calcOperator == "/" || calcOperator == "*")
     {
-        std::cout << "Number 1: ";
-        while (!(std::cin >> num1))
+        num1 = inputNum1();
+        num2 = inputNum2();
+        while (calcOperator == "/" && num2 == 0)    
         {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Error: You entered a non numerical character for Number 1\n";
-            std::cout << "Number 1: ";
+            std::cout << "Error: You cannot divide by 0\n";
+            inputNum2();
         }
-        std::cout << "Number 2: ";
-        while (!(std::cin >> num2))
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Error: You entered a non numerical character for Number 2\n";
-            std::cout << "Number 2: ";
-        }
-
-        ans = arithmetic(num1, num2, calcOperator);
-        if (calcOperator == "/" && ans == 0)
-        {
-            std::cout << "Error: You cannot divide by 0";
-            return "invDivison";
-        }
-        else
-        {
+            ans = arithmetic(num1, num2, calcOperator);
             std::cout << num1 << calcOperator << num2 << "=" << ans;
             return "success";
-        }
     }
     else if (calcOperator == "^")
     {
         std::cout << "Number 1: ";
-        while (!(std::cin >> num1))
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Error: You entered a non numerical character for Number 1\n";
-            std::cout << "Number 1: ";
-        }
+        num1 =  inputNum1();
         std::cout << "Power: ";
         while (!(std::cin >> num2))
         {
@@ -108,24 +108,30 @@ str calculation(str calcOperator)
     return "failed";
 }
 
-str getOperator()
-{
-    std::cout << "Add('+'), Subtract('-'), Divde('/'), Multiply('*') or Powers('^'): ";
-    std::cin >> calcOperator;
-    return calcOperator;
-}
+
 
 int main()
 {
     calcOperator = getOperator();
     calcProcess = calculation(calcOperator);
-    if (calcProcess == "failed")
+    if (calcProcess == "failed" )
     {
-        std::cout << "FAILED";
+        std::cout << "Error";
     }
-    else if (calcProcess == "invOp" || calcProcess == "invDivision")
+    else if(calcProcess == "invOp")
     {
         main();
+    }
+    else if (calcProcess == "success")
+    {
+        char continueProgram;
+        std::cout << "\nWould you like to use the calculator again (Y/N): ";
+        std::cin >> continueProgram;
+        continueProgram = (char) std::tolower(continueProgram);
+        if (continueProgram == 'y')
+        {
+            main();
+        }
     }
     return 0;
 }
