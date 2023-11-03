@@ -82,7 +82,7 @@ str calculation(str calcOperator, double num1, double num2)
         while (calcOperator == "/" && num2 == 0)
         {
             std::cout << "Error: You cannot divide by 0\n";
-            inputNum2(num2);
+            num2 = inputNum2(num2);
         }
         ans = arithmetic(num1, num2, calcOperator);
         std::cout << num1 << calcOperator << num2 << "=" << ans;
