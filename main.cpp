@@ -53,6 +53,15 @@ double arithmetic(double num1, double num2, str calcOperator)
 
 double power(double num1, double num2)
 {
+    num1 = inputNum1(num1);
+        std::cout << "Power: ";
+        while (!(std::cin >> num2))
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Error: You entered a non numerical character for Power\n";
+            std::cout << "Power: ";
+        }
     return pow(num1, num2);
 }
 
@@ -81,15 +90,6 @@ str calculation(str calcOperator, double num1, double num2)
     }
     else if (calcOperator == "^")
     {
-        num1 = inputNum1(num1);
-        std::cout << "Power: ";
-        while (!(std::cin >> num2))
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Error: You entered a non numerical character for Power\n";
-            std::cout << "Power: ";
-        }
         ans = power(num1, num2);
         std::cout << num1 << "^" << num2 << "=" << ans;
         return "success";
@@ -104,32 +104,32 @@ str calculation(str calcOperator, double num1, double num2)
 
 int main()
 {
+    char continueProgram = 'y';
+    while (continueProgram == 'y')
+    {
+        double num1;
+        double num2;
+        str calcOperator;
+        str calcProcess;
 
-    double num1;
-    double num2;
-    str calcOperator;
-    str calcProcess;
-
-    calcOperator = getOperator(calcOperator);
-    calcProcess = calculation(calcOperator, num1, num2);
-    if (calcProcess == "failed")
-    {
-        std::cout << "Error";
-    }
-    else if (calcProcess == "invOp")
-    {
-        main(); // Remove recurison
-    }
-    else if (calcProcess == "success")
-    {
-        char continueProgram;
-        std::cout << "\nWould you like to use the calculator again (Y/N): ";
-        std::cin >> continueProgram;
-        continueProgram = (char)std::tolower(continueProgram);
-        if (continueProgram == 'y')
+        calcOperator = getOperator(calcOperator);
+        calcProcess = calculation(calcOperator, num1, num2);
+        if (calcProcess == "failed")
         {
-            main(); // Remove recurison
+            std::cout << "Error";
+            continue;
+        }
+        else if (calcProcess == "invOp")
+        {
+            continue;
+        }
+        else if (calcProcess == "success")
+        {
+            std::cout << "\nWould you like to use the calculator again (Y/N): ";
+            std::cin >> continueProgram;
+            continueProgram = (char)std::tolower(continueProgram);
         }
     }
+
     return 0;
 }
