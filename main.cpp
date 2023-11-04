@@ -2,6 +2,14 @@
 #include <cmath>
 using str = std::string;
 
+/* TO DO
+- Add trig stuff
+- Move more away from main()
+- Tidy up other functions
+
+- Maybe make a GUI?
+*/
+
 double inputNum1(int num1)
 {
     std::cout << "Number 1: ";
