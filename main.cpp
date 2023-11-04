@@ -54,25 +54,18 @@ double arithmetic(double num1, double num2, str calcOperator)
 double power(double num1, double num2)
 {
     num1 = inputNum1(num1);
+    std::cout << "Power: ";
+    while (!(std::cin >> num2))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Error: You entered a non numerical character for Power\n";
         std::cout << "Power: ";
-        while (!(std::cin >> num2))
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Error: You entered a non numerical character for Power\n";
-            std::cout << "Power: ";
-        }
+    }
     return pow(num1, num2);
 }
 
-str getOperator(str calcOperator)
-{
-    std::cout << "Add('+'), Subtract('-'), Divde('/'), Multiply('*') or Powers('^'): ";
-    std::cin >> calcOperator;
-    return calcOperator;
-}
-
-str calculation(str calcOperator, double num1, double num2)
+str arithmeticCalc(str calcOperator, double num1, double num2)
 {
     double ans;
     if (calcOperator == "+" || calcOperator == "-" || calcOperator == "/" || calcOperator == "*")
@@ -102,6 +95,46 @@ str calculation(str calcOperator, double num1, double num2)
     return "failed";
 }
 
+str getOperator(char calcMode, str calcOperator)
+{
+    if (calcMode == 'a')
+    {
+        std::cout << "Add('+'), Subtract('-'), Divde('/'), Multiply('*') or Powers('^'): ";
+        std::cin >> calcOperator;
+    }
+    else if (calcMode == 't')
+    {
+        std::cout << "Sine(S), Cosine(C), Tan(T), Sine Inverse(SI), Cosine Inverse(CI), Tan Inverse(TI), Cosine Rule(CR) or Sine Rule(SR): ";
+        std::cin >> calcOperator;
+        for (int i = 0; i < calcOperator.length(); i++)
+        {
+            calcOperator[i] = (char)std::tolower(calcOperator[i]);
+        }
+    }
+    return calcOperator;
+}
+
+char getMode(char calcMode)
+{
+    bool validMode = false;
+    while (validMode == false)
+    {
+        std::cout << "Would you like to do Arithmetic('A') or Trig('T'): ";
+        std::cin >> calcMode;
+        calcMode = (char)std::tolower(calcMode);
+        if (calcMode == 'a' || calcMode == 't')
+        {
+            validMode = true;
+        }
+        else
+        {
+            std::cout << "Error: Invalid Mode\n";
+        }
+    }
+
+    return calcMode;
+}
+
 int main()
 {
     char continueProgram = 'y';
@@ -111,11 +144,22 @@ int main()
         double num2;
         str calcOperator;
         str calcProcess;
+        char calcMode;
 
-        calcOperator = getOperator(calcOperator);
-        calcProcess = calculation(calcOperator, num1, num2);
-        if (calcProcess == "failed")
+        calcMode = getMode(calcMode);
+        calcOperator = getOperator(calcMode, calcOperator);
+        if(calcMode == 'a')
         {
+            calcProcess = arithmeticCalc(calcOperator, num1, num2);
+        }
+        else if(calcMode == 't')
+        {
+            
+        }
+        
+
+        if (calcProcess == "failed")
+        {   
             std::cout << "Error";
             continue;
         }
