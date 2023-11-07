@@ -66,6 +66,10 @@ double power(double num1, double num2)
     return pow(num1, num2);
 }
 
+str trigCalc(str calcOperator, double num1, double num2)
+{
+}
+
 str arithmeticCalc(str calcOperator, double num1, double num2)
 {
     double ans;
@@ -165,6 +169,7 @@ int main()
         }
         else if (calcMode == 't')
         {
+            calcProcess = trigCalc(calcOperator, num1, num2);
         }
 
         // -------------------------------------------- //
