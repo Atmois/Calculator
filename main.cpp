@@ -1,10 +1,9 @@
-#include <iostream>
 #include <cmath>
+#include <iostream>
 using str = std::string;
 
 /* TO DO
 - Add trig stuff
-- Move more away from main()
 - Tidy up other functions
 
 - Maybe make a GUI?
@@ -17,8 +16,7 @@ double inputNum1(int num1)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Error: You entered a non numerical character for Number 1\n";
-        std::cout << "Number 1: ";
+        std::cout << "Error: You entered a non numerical character for Number 1" << "\n" << "Number 1: ";
     }
     return num1;
 }
@@ -29,8 +27,7 @@ double inputNum2(int num2)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Error: You entered a non numerical character for Number 2\n";
-        std::cout << "Number 2: ";
+        std::cout << "Error: You entered a non numerical character for Number 2" << "\n" << "Number 2: ";
     }
     return num2;
 }
@@ -53,10 +50,7 @@ double arithmetic(double num1, double num2, str calcOperator)
     {
         return num1 / num2;
     }
-    else
-    {
-        return std::numeric_limits<double>::quiet_NaN();
-    }
+    return std::numeric_limits<double>::quiet_NaN();
 }
 
 double power(double num1, double num2)
@@ -67,8 +61,7 @@ double power(double num1, double num2)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Error: You entered a non numerical character for Power\n";
-        std::cout << "Power: ";
+        std::cout << "Error: You entered a non numerical character for Power" << "\n" << "Power: ";
     }
     return pow(num1, num2);
 }
@@ -111,7 +104,7 @@ str getOperator(char calcMode, str calcOperator)
         std::cin >> calcOperator;
     }
     else if (calcMode == 't')
-    {
+    {   
         std::cout << "Sine(S), Cosine(C), Tan(T), Sine Inverse(SI), Cosine Inverse(CI), Tan Inverse(TI), Cosine Rule(CR) or Sine Rule(SR): ";
         std::cin >> calcOperator;
         for (int i = 0; i < calcOperator.length(); i++)
@@ -143,6 +136,16 @@ char getMode(char calcMode)
     return calcMode;
 }
 
+char continueCheck(str calcProcess, char continueProgram)
+{
+
+    std::cout << "\nWould you like to use the calculator again (Y/N): ";
+    std::cin >> continueProgram;
+    continueProgram = (char)std::tolower(continueProgram);
+
+    return continueProgram;
+}
+
 int main()
 {
     char continueProgram = 'y';
@@ -156,18 +159,18 @@ int main()
 
         calcMode = getMode(calcMode);
         calcOperator = getOperator(calcMode, calcOperator);
-        if(calcMode == 'a')
+        if (calcMode == 'a')
         {
             calcProcess = arithmeticCalc(calcOperator, num1, num2);
         }
-        else if(calcMode == 't')
+        else if (calcMode == 't')
         {
-            
         }
-        
+
+        // -------------------------------------------- //
 
         if (calcProcess == "failed")
-        {   
+        {
             std::cout << "Error";
             continue;
         }
@@ -177,9 +180,7 @@ int main()
         }
         else if (calcProcess == "success")
         {
-            std::cout << "\nWould you like to use the calculator again (Y/N): ";
-            std::cin >> continueProgram;
-            continueProgram = (char)std::tolower(continueProgram);
+            continueProgram = continueCheck(calcProcess, continueProgram);
         }
     }
 
