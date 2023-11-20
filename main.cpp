@@ -57,7 +57,10 @@ double power(double num1, double num2) {
   return pow(num1, num2);
 }
 
-std::string trigCalc(std::string calcOperator, double num1, double num2) {}
+std::string trigCalc(std::string calcOperator, double num1, double num2) {
+    std::cout << "This feature is unfinished.";
+    return "success";
+}
 
 std::string arithmeticCalc(std::string calcOperator, double num1, double num2) {
   double ans;
